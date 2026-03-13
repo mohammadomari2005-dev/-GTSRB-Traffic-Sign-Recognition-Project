@@ -1,0 +1,20 @@
+# Dataset — too large for GitHub
+data/
+
+# Model checkpoints
+experiments/
+*.pth
+*.pt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
