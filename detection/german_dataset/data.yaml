@@ -1,0 +1,5 @@
+train: /home/mohammmad/Traffic-Sign-Recognition /detection/german_dataset/train/images
+val: /home/mohammmad/Traffic-Sign-Recognition /detection/german_dataset/val/images
+test: /home/mohammmad/Traffic-Sign-Recognition /detection/german_dataset/val/images
+nc: 43
+names: ["Speed 20","Speed 30","Speed 50","Speed 60","Speed 70","Speed 80","End Speed 80","Speed 100","Speed 120","No passing","No pass >3.5t","Right-of-way","Priority road","Yield","Stop","No vehicles","Veh >3.5t prohib","No entry","Caution","Curve left","Curve right","Double curve","Bumpy road","Slippery","Road narrows","Road work","Signals","Pedestrians","Children","Bicycles","Ice/snow","Wild animals","End limits","Turn right","Turn left","Ahead only","Straight/right","Straight/left","Keep right","Keep left","Roundabout","End no pass","End no pass >3.5t"]

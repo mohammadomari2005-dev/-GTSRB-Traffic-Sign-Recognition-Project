@@ -40,10 +40,10 @@ def classify_crop(model, crop_rgb, transform, device):
     return CLASS_NAMES[label], conf
 
 
-def run_video(video_path, output_path, checkpoint_path, conf_threshold=0.5):
+def run_video(video_path, output_path, checkpoint_path, conf_threshold=0.15):
     device    = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model     = load_model(checkpoint_path, device)
-    detector  = YOLO("yolov8n.pt")
+    detector = YOLO("experiments/gtsrb_detector_v2/weights/best.pt")
     transform = get_val_transforms(32)
 
     cap = cv2.VideoCapture(video_path)
@@ -70,16 +70,15 @@ def run_video(video_path, output_path, checkpoint_path, conf_threshold=0.5):
             if bw < 20 or bh < 20:
                 continue
 
-            # Skip large objects — signs are small (less than 20% of frame)
-            if bw > w * 0.2 or bh > h * 0.2:
-                continue
+            # crop       = frame_rgb[y1:y2, x1:x2]
 
-            # Skip non-square detections — signs are roughly square
-            aspect = bw / (bh + 1e-5)
-            if aspect < 0.5 or aspect > 2.0:
-                continue
+            pad = 5
+            y1p = max(0, y1 - pad)
+            y2p = min(frame.shape[0], y2 + pad)
+            x1p = max(0, x1 - pad)
+            x2p = min(frame.shape[1], x2 + pad)
+            crop = frame_rgb[y1p:y2p, x1p:x2p]
 
-            crop       = frame_rgb[y1:y2, x1:x2]
             name, conf = classify_crop(model, crop, transform, device)
             label      = f"{name} {conf:.0%}"
 
